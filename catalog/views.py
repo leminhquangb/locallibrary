@@ -40,7 +40,7 @@ from django.views import generic
 
 class BookListView(generic.ListView):
     model = Book
-    paginate_by = 1
+    paginate_by = 10
 
 class BookDetailView(generic.DetailView):
     model = Book
@@ -54,8 +54,9 @@ def book_detail_view(request, primary_key):
     return render(request, 'catalog/book_detail.html', context={'book': book})
 
 class AuthorListView(generic.ListView):
-	"""docstring for AuthorListView"""
-	model = Author
+    """docstring for AuthorListView"""
+    model = Author
+    paginate_by = 10
 
 class AuthorDetailView(generic.DetailView):
     model = Author
@@ -78,7 +79,7 @@ class AllborrowerListView(PermissionRequiredMixin,generic.ListView):
     paginate_by = 10
     def get_queryset(self):
         return BookInstance.objects.filter(status__exact='o').order_by('due_back')
-        
+
 import datetime
 
 from django.contrib.auth.decorators import permission_required
